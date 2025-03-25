@@ -51,6 +51,7 @@ void main(List<String> args) async {
   }
 
   final yamlDir = imageDir.childDirectory('res')..createSync();
+  yamlDir.childFile('raw.txt').writeAsStringSync(result);
   for (final yaml in loadYamlDocuments(result)) {
     final contents = yaml.contents as YamlMap;
     final id = contents['id'];
