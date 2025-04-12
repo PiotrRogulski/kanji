@@ -22,6 +22,14 @@ void main(List<String> args) async {
     error('Directory does not exist: $imagePath');
   }
 
+  final yamlDir = imageDir.childDirectory('res')..createSync();
+  final rawOutputFile = yamlDir.childFile('raw.txt');
+  if (rawOutputFile.existsSync()) {
+    final content = rawOutputFile.readAsStringSync();
+    writeFiles(yamlDir, content);
+    return;
+  }
+
   final model = createModel(apiKey: apiKey);
 
   final images = imageDir
@@ -50,12 +58,17 @@ void main(List<String> args) async {
     error('Failed to generate content');
   }
 
-  final yamlDir = imageDir.childDirectory('res')..createSync();
-  yamlDir.childFile('raw.txt').writeAsStringSync(result);
-  for (final yaml in loadYamlDocuments(result)) {
+  rawOutputFile.writeAsStringSync(result);
+  writeFiles(yamlDir, result);
+}
+
+void writeFiles(Directory targetDir, String content) {
+  final cleanedContent = content.replaceAll(RegExp('```(?:yaml)?\n?'), '');
+
+  for (final yaml in loadYamlDocuments(cleanedContent)) {
     final contents = yaml.contents as YamlMap;
     final id = contents['id'];
-    yamlDir.childFile('$id.yaml').writeAsStringSync(contents.span.text);
+    targetDir.childFile('$id.yaml').writeAsStringSync(contents.span.text);
   }
 }
 

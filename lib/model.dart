@@ -14,10 +14,8 @@ GenerativeModel createModel({required String apiKey}) => GenerativeModel(
 
 const _system = '''
 You'll be given entries from a Kanji textbook.
-Parse the entries to provide a YAML output with the data.
-ALWAYS output only the YAML documents without the surrounding code fence.
-NEVER add the backticks around the YAML output.
-The output should be directly usable as a YAML file.
+Parse each entry to create one YAML document with the data as the output.
+Use all attached images. Each image contains one dictionary entry.
 Output YAML documents separated with ---.
 This is an example of the schema:
 
@@ -76,4 +74,7 @@ Always include the list of sentences.
 
 ALWAYS output only the YAML documents without the surrounding code fence.
 NEVER add the backticks around the YAML output.
-The output should be directly usable as a YAML file.''';
+The output should be directly usable as a YAML file.
+
+If the content contains quotation marks, escape them.
+''';
