@@ -2,13 +2,11 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:file/file.dart';
-import 'package:file/local.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:kanji/model.dart';
+import 'package:kanji/utils.dart';
 import 'package:mime/mime.dart';
 import 'package:yaml/yaml.dart';
-
-const fs = LocalFileSystem();
 
 void main(List<String> args) async {
   final apiKey =
@@ -70,9 +68,4 @@ void writeFiles(Directory targetDir, String content) {
     final id = contents['id'];
     targetDir.childFile('$id.yaml').writeAsStringSync(contents.span.text);
   }
-}
-
-Never error(String message) {
-  stderr.writeln(message);
-  exit(1);
 }
