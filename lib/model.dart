@@ -34,33 +34,33 @@ readings:
   kunyomi:
     - ここの
     - ここの・つ
-examples:
+words:
   - word: 土地
     reading: トチ
     meaning: ziemia; posiadłość ziemska; region
     related:
-      - word: 土地の
-        reading: トチの
+      - word: ＿の
         meaning: miejscowy, lokalny
 sentences:
   - Watashi wa Pōrandojin desu.
   - Kono fune no jin'in wa nannin desu ka.
 
-If an example uses an underscore, refer to the previous one, fill it in the underscore and nest it user the previous example, like this:
+If a word uses an underscore, nest it user the previous word, like this:
 
-土地　トチ　...
-＿の　　　　...
+土地　トチ　ziemia; posiadłość ziemska; region
+＿の　　　　miejscowy, lokalny
 
 becomes
 
-examples:
+words:
   - word: 土地
     reading: トチ
     meaning: ziemia; posiadłość ziemska; region
     related:
-      - word: 土地の
-        reading: トチの
+      - word: ＿の
         meaning: miejscowy, lokalny
+
+NEVER include words containing the underscore (＿) in the main list.
 
 Do not list it as a separate entry. Nest it inside the `related` list in the previous entry. Reuse the base word and the reading, but don't use additional spaces in the readings.
 
@@ -77,4 +77,6 @@ NEVER add the backticks around the YAML output.
 The output should be directly usable as a YAML file.
 
 If the content contains quotation marks, escape them.
+
+Always make sure that the output contains exactly the same number of documents as the provided images.
 ''';
